@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { v4 } from 'uuid';
 
 interface Gift {
   id?: string;
@@ -27,7 +28,7 @@ function App() {
       alert('Por favor ingresa algo valido');
       return;
     }
-    setGift({ name: e.target.value });
+    setGift({ id: v4(), name: e.target.value });
   };
 
   const addGift = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -35,10 +36,16 @@ function App() {
     setList([...list, gift]);
   };
 
-  const deleteTask = (index: any) => {
-    let newList = list;
-    newList.splice(index, 1);
-    setList(newList);
+  const deleteTask = (id?: string) => {
+    setList(
+      list.filter((gift) => {
+        return gift.id != id;
+      })
+    );
+  };
+
+  const deleteAllTask = (): void => {
+    setList([]);
   };
 
   return (
@@ -77,7 +84,7 @@ function App() {
                   return (
                     <div className="flex items-center  justify-between rounded-xl px-2 py-1 bg-gradient-to-t from-neutral-200 via-red-100 to-red-100  mb-1 ">
                       <p>{list.name}</p>
-                      <button onClick={() => deleteTask(index)}>
+                      <button onClick={() => deleteTask(list.id)}>
                         {' '}
                         <img
                           className="h-8 w-6"
@@ -88,6 +95,18 @@ function App() {
                     </div>
                   );
                 })}
+                <button
+                  className=" m-2
+                rounded-sm
+                py-1
+                bg-red-600
+                text-white
+                font-semibold
+                w-full"
+                  onClick={deleteAllTask}
+                >
+                  Borrar todos
+                </button>
               </ul>
             </div>
           </div>
