@@ -14,21 +14,31 @@ function App() {
     },
     {
       id: '21s',
-      name: 'Play 4',
+      name: 'Taza de Javascript ',
     },
     {
       id: 's2333',
-      name: 'Pelota',
+      name: 'Camiseta',
     },
   ]);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value === ' ') {
+      alert('Por favor ingresa algo valido');
+      return;
+    }
     setGift({ name: e.target.value });
   };
 
   const addGift = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setList([...list, gift]);
+  };
+
+  const deleteTask = (index: any) => {
+    let newList = list;
+    newList.splice(index, 1);
+    setList(newList);
   };
 
   return (
@@ -63,11 +73,11 @@ function App() {
             </div>
             <div className="flex-row mt-5">
               <ul>
-                {list?.map((list: Gift) => {
+                {list?.map((list: Gift, index) => {
                   return (
                     <div className="flex items-center  justify-between rounded-xl px-2 py-1 bg-gradient-to-t from-neutral-200 via-red-100 to-red-100  mb-1 ">
                       <p>{list.name}</p>
-                      <button>
+                      <button onClick={() => deleteTask(index)}>
                         {' '}
                         <img
                           className="h-8 w-6"
