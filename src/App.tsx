@@ -80,21 +80,25 @@ function App() {
             </div>
             <div className="flex-row mt-5">
               <ul>
-                {list?.map((list: Gift, index) => {
-                  return (
-                    <div className="flex items-center  justify-between rounded-xl px-2 py-1 bg-gradient-to-t from-neutral-200 via-red-100 to-red-100  mb-1 ">
-                      <p>{list.name}</p>
-                      <button onClick={() => deleteTask(list.id)}>
-                        {' '}
-                        <img
-                          className="h-8 w-6"
-                          src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Icons8_flat_delete_generic.svg/800px-Icons8_flat_delete_generic.svg.png"
-                          alt=""
-                        />{' '}
-                      </button>
-                    </div>
-                  );
-                })}
+                {list.length > 0 ? (
+                  list?.map((list: Gift, index) => {
+                    return (
+                      <div className="flex items-center  justify-between rounded-xl px-2 py-1 bg-gradient-to-t from-neutral-200 via-red-100 to-red-100  mb-1 ">
+                        <p>{list.name}</p>
+                        <button onClick={() => deleteTask(list.id)}>
+                          {' '}
+                          <img
+                            className="h-8 w-6"
+                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Icons8_flat_delete_generic.svg/800px-Icons8_flat_delete_generic.svg.png"
+                            alt=""
+                          />{' '}
+                        </button>
+                      </div>
+                    );
+                  })
+                ) : (
+                  <p>No hay regalos</p>
+                )}
                 <button
                   className=" m-2
                 rounded-sm
