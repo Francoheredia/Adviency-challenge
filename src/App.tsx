@@ -24,15 +24,15 @@ function App() {
   ]);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value === ' ') {
-      alert('Por favor ingresa algo valido');
-      return;
-    }
     setGift({ id: v4(), name: e.target.value });
   };
 
   const addGift = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+
+    if (gift.name === '') {
+      return;
+    }
     setList([...list, gift]);
   };
 
@@ -97,7 +97,9 @@ function App() {
                     );
                   })
                 ) : (
-                  <p>No hay regalos</p>
+                  <div className="flex justify-center">
+                    <p className="text-slate-500">No hay regalos</p>
+                  </div>
                 )}
                 <button
                   className=" m-2
