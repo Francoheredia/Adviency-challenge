@@ -33,6 +33,10 @@ function App() {
     if (gift.name === '') {
       return;
     }
+
+    if (hasDuplicate(list, gift.name)) {
+      return;
+    }
     setList([...list, gift]);
   };
 
@@ -42,6 +46,21 @@ function App() {
         return gift.id != id;
       })
     );
+  };
+
+  const hasDuplicate = (array: Gift[], gift: string) => {
+    const valueArr = array.map((element) => {
+      return element.name;
+    });
+
+    const isDuplicate = valueArr.includes(gift);
+
+    // console.log(valueArr);
+    // const isDuplicate = valueArr.some((item, idx) => {
+    //   return valueArr.indexOf(item) != idx;
+    // });
+
+    return isDuplicate;
   };
 
   const deleteAllTask = (): void => {
@@ -81,7 +100,7 @@ function App() {
             <div className="flex-row mt-5">
               <ul>
                 {list.length > 0 ? (
-                  list?.map((list: Gift, index) => {
+                  list?.map((list: Gift) => {
                     return (
                       <div className="flex items-center  justify-between rounded-xl px-2 py-1 bg-gradient-to-t from-neutral-200 via-red-100 to-red-100  mb-1 ">
                         <p>{list.name}</p>
